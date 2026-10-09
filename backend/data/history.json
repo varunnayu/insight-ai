@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "ds_946fcf5124",
+    "filename": "sales_data_sample.csv",
+    "uploaded_at": "2026-10-09 22:04:48",
+    "rows": 2823,
+    "columns": 25,
+    "file_size": 527958,
+    "is_active": true
+  }
+]

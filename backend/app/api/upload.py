@@ -37,22 +37,30 @@ async def upload_dataset(file: UploadFile = File(...)):
             detail="Only CSV and Excel files are supported.",
         )
 
+   
     try:
         contents = await file.read()
 
         if file.filename.lower().endswith(".csv"):
-            df = pd.read_csv(BytesIO(contents))
+            try:
+                df = pd.read_csv(BytesIO(contents), encoding="utf-8-sig")
+            except UnicodeDecodeError:
+                df = pd.read_csv(BytesIO(contents), encoding="cp1252")
         else:
             df = pd.read_excel(BytesIO(contents))
 
         if df.empty:
             raise HTTPException(
                 status_code=400,
-                detail="The uploaded dataset is empty.",
+                detail="The uploaded dataset is empty."
             )
 
         # Store dataset for analytics and reporting
-        dataset_id = set_dataset(df, filename=file.filename, file_size=len(contents))
+        dataset_id = set_dataset(
+            df,
+            filename=file.filename,
+            file_size=len(contents)
+        )
 
         profile = profile_dataframe(df)
 
@@ -71,6 +79,7 @@ async def upload_dataset(file: UploadFile = File(...)):
             status_code=500,
             detail=f"Failed to process dataset: {str(error)}",
         )
+
 
 
 @router.get("/history")
