@@ -18,6 +18,7 @@ import Forecast from "./pages/Forecast";
 import Anomalies from "./pages/Anomalies";
 import Settings from "./pages/Settings";
 
+import Landing from "./pages/Landing";
 import HistoryDrawer from "./components/layout/HistoryDrawer";
 
 function AppContent() {
@@ -30,28 +31,101 @@ function AppContent() {
     } = useDataset();
 
     return (
-        <DashboardLayout>
+        <>
             <Routes>
-                {/* Dashboard routes */}
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                {/* Standalone Landing Page */}
+                <Route path="/" element={<Landing />} />
+                <Route path="/welcome" element={<Landing />} />
+
+                {/* Main Project & Dashboard Views */}
+                <Route
+                    path="/dashboard"
+                    element={
+                        <DashboardLayout>
+                            <Dashboard />
+                        </DashboardLayout>
+                    }
+                />
 
                 {/* Working Reports route */}
-                <Route path="/reports" element={<Reports />} />
+                <Route
+                    path="/reports"
+                    element={
+                        <DashboardLayout>
+                            <Reports />
+                        </DashboardLayout>
+                    }
+                />
 
                 {/* Dataset History route */}
-                <Route path="/history" element={<History />} />
+                <Route
+                    path="/history"
+                    element={
+                        <DashboardLayout>
+                            <History />
+                        </DashboardLayout>
+                    }
+                />
 
                 {/* Additional modules */}
-                <Route path="/analytics" element={<Analytics />} />
-                <Route path="/insights" element={<AIInsights />} />
-                <Route path="/analyst" element={<AIAnalyst />} />
-                <Route path="/forecast" element={<Forecast />} />
-                <Route path="/anomalies" element={<Anomalies />} />
-                <Route path="/settings" element={<Settings />} />
+                <Route
+                    path="/analytics"
+                    element={
+                        <DashboardLayout>
+                            <Analytics />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/insights"
+                    element={
+                        <DashboardLayout>
+                            <AIInsights />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/analyst"
+                    element={
+                        <DashboardLayout>
+                            <AIAnalyst />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/forecast"
+                    element={
+                        <DashboardLayout>
+                            <Forecast />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/anomalies"
+                    element={
+                        <DashboardLayout>
+                            <Anomalies />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/settings"
+                    element={
+                        <DashboardLayout>
+                            <Settings />
+                        </DashboardLayout>
+                    }
+                />
 
                 {/* Fallback */}
-                <Route path="*" element={<Dashboard />} />
+                <Route
+                    path="*"
+                    element={
+                        <DashboardLayout>
+                            <Dashboard />
+                        </DashboardLayout>
+                    }
+                />
             </Routes>
 
             {/* Global upload modal accessible across all views */}
@@ -66,7 +140,7 @@ function AppContent() {
                 open={historyPanelOpen}
                 onClose={() => setHistoryPanelOpen(false)}
             />
-        </DashboardLayout>
+        </>
     );
 }
 

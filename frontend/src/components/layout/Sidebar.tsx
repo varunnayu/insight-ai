@@ -24,7 +24,7 @@ interface SidebarProps {
 const navigation = [
     {
         name: "Overview",
-        path: "/",
+        path: "/dashboard",
         icon: LayoutDashboard,
         end: true,
     },
